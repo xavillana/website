@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dulce Tentación - Pasteles y Cupcakes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    h1, h2, h3 { font-family: 'Dancing Script', cursive; }
+    .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1559622214-96411a5733a6?w=1920') center/cover no-repeat; }
+  </style>
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg fixed w-full top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-3xl font-bold text-pink-600">Dulce Tentación</h1>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#" class="text-gray-700 hover:text-pink-600 font-medium">Inicio</a>
+          <a href="#" class="text-gray-700 hover:text-pink-600 font-medium">Productos</a>
+          <button id="cart-btn" class="relative">
+            <svg class="w-8 h-8 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs rounded-full w-6 w-6 h-6 flex items-center justify-center">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero h-screen flex items-center justify-center text-center text-white">
+    <div>
+      <h1 class="text-5xl md:text-7xl font-bold mb-4">Pasteles Hechos con Amor</h1>
+      <p class="text-xl md:text-2xl mb-8">Entrega el mismo día • 100% artesanal</p>
+      <button onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})" 
+              class="bg-pink-600 hover:bg-pink-700 text-white px-8 py-4 rounded-full text-xl font-semibold">
+        Ver Productos
+      </button>
+    </div>
+  </section>
+
+  <!-- Productos -->
+  <section id="productos" class="py-20 px-4">
+    <h2 class="text-5xl text-center font-bold text-pink-600 mb-12">Nuestros Productos</h2>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Producto 1 -->
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600" alt="Pastel de chocolate" class="w-full h-64 object-cover">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-2">Pastel Chocolate Bliss</h3>
+          <p class="text-gray-600 mb-4">Relleno de ganache y fresas frescas</p>
+          <div class="flex justify-between items-center">
+            <span class="text-3xl font-bold text-pink-600">$35</span>
+            <button class="add-to-cart bg-pink-600 text-white px-6 py-3 rounded-full hover:bg-pink-700" 
+                    data-name="Pastel Chocolate Bliss" data-price="35">
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Producto 2 -->
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition">
+        <img src="https://images.unsplash.com/photo-1559622214-96411a5733a6?w=600" alt="Cupcakes" class="w-full h-64 object-cover">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-2">Caja de 12 Cupcakes</h3>
+          <p class="text-gray-600 mb-4">Sabores surtidos • Decoración personalizada</p>
+          <div class="flex justify-between items-center">
+            <span class="text-3xl font-bold text-pink-600">$28</span>
+            <button class="add-to-cart bg-pink-600 text-white px-6 py-3 rounded-full hover:bg-pink-700" 
+                    data-name="Caja de 12 Cupcakes" data-price="28">
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Puedes añadir más productos aquí -->
+    </div>
+  </section>
+
+  <!-- Carrito Lateral -->
+  <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition z-50 overflow-y-auto">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold">Tu Carrito</h2>
+        <button id="close-cart" class="text-4xl">×</button>
+      </div>
+      <div id="cart-items" class="space-y-4 mb-6"></div>
+      <div class="border-t pt-4">
+        <p class="text-2xl font-bold text-right mb-6">Total: $<span id="cart-total">0</span></p>
+        <button id="checkout-btn" class="w-full bg-pink-600 text-white py-4 rounded-lg text-xl font-bold hover:bg-pink-700">
+          Ir a Pagar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fondo oscuro cuando carrito está abierto -->
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-8">
+      <h2 class="text-4xl font-bold text-center mb-8">Finalizar Compra</h2>
+      <form id="checkout-form">
+        <input type="text" placeholder="Nombre completo" required class="w-full p-4 mb-4 border rounded-lg">
+        <input type="email" placeholder="Correo electrónico" required class="w-full p-4 mb-4 border rounded-lg">
+        <input type="tel" placeholder="Teléfono" required class="w-full p-4 mb-4 border rounded-lg">
+        <textarea placeholder="Dirección de entrega" required class="w-full p-4 mb-6 border rounded-lg h-32"></textarea>
+        <button type="submit" class="w-full bg-pink-600 text-white py-4 rounded-lg text-xl font-bold hover:bg-pink-700">
+          Confirmar Pedido
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmación de Pedido -->
+  <div id="confirmation" class="fixed inset-0 bg-gradient-to-br from-pink-100 to-purple-100 hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-12 text-center max-w-lg">
+      <div class="text-green-500 text-8xl mb-6">✓</div>
+      <h2 class="text-5xl font-bold mb-4">¡Pedido Recibido!</h2>
+      <p class="text-2xl mb-2">Gracias <span id="confirm-name"></span></p>
+      <p class="text-xl text-gray-600 mb-8">Tu pedido llegará mañana entre 2pm - 4pm</p>
+      <p class="text-3xl font-bold text-pink-600 mb-8">Número de pedido: <span id="order-number"></span></p>
+      <button onclick="location.reload()" class="bg-pink-600 text-white px-10 py-4 rounded-full text-xl">
+        Volver a la Tienda
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // === CARRITO CON LOCALSTORAGE ===
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCart() {
+      const itemsDiv = document.getElementById('cart-items');
+      const totalSpan = document.getElementById('cart-total');
+      const countSpan = document.getElementById('cart-count');
+      
+      itemsDiv.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        itemsDiv.innerHTML += `
+          <div class="flex justify-between items-center border-b pb-3">
+            <div>
+              <p class="font-semibold">${item.name}</p>
+              <p class="text-sm text-gray-600">Cantidad: ${item.quantity}</p>
+            </div>
+            <p class="font-bold">$${item.price * item.quantity}</p>
+            <button>
+          </div>
+        `;
+      });
+      
+      totalSpan.textContent = total;
+      countSpan.textContent = cart.length;
+    }
+
+    // Añadir al carrito
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.dataset.name;
+        const price = parseFloat(btn.dataset.price);
+        const existing = cart.find(item => item.name === name);
+        if (existing) existing.quantity++;
+        else cart.push({name, price, quantity: 1});
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+        alert('¡Añadido al carrito!');
+      });
+    });
+
+    // Abrir/cerrar carrito
+    document.getElementById('cart-btn').onclick = () => {
+      document.getElementById('sidebar').classList.remove('translate-x-full');
+      document.getElementById('overlay').classList.remove('hidden');
+      updateCart();
+    };
+    document.getElementById('close-cart').onclick = document.getElementById('overlay').onclick = () => {
+      document.getElementById('sidebar').classList.add('translate-x-full');
+      document.getElementById('overlay').classList.add('hidden');
+    };
+
+    // Checkout
+    document.getElementById('checkout-btn').onclick = () => {
+      if (cart.length === 0) return alert('El carrito está vacío');
+      document.getElementById('sidebar').classList.add('translate-x-full');
+      document.getElementById('overlay').classList.add('hidden');
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    };
+
+    // Confirmar pedido
+    document.getElementById('checkout-form').onsubmit = (e) => {
+      e.preventDefault();
+      const name = e.target[0].value;
+      document.getElementById('confirm-name').textContent = name;
+      document.getElementById('order-number').textContent = 'ORD' + Date.now();
+      document.getElementById('checkout-modal').classList.add('hidden');
+      document.getElementById('confirmation').classList.remove('hidden');
+      localStorage.removeItem('cart'); // Vaciar carrito
+    };
+
+    // Iniciar
+    updateCart();
+  </script>
+</body>
+</html>
